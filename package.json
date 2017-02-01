@@ -6,14 +6,16 @@
   "scripts": {
     "browserSync": "./scripts/browserSync",
     "watch": "./scripts/watch",
-    "compile": "./scripts/compile --production",
     "test": "mocha",
     "start": "./node_modules/pm2/bin/pm2 reload app.json",
     "assets:copy": "cp -R ./app/assets ./public",
     "assets:images": "./scripts/images",
+    "assets:compile": "./scripts/compile --production",
     "render": "./scripts/render --view index",
+    "compile": "npm run assets:copy && npm run assets:images & npm run assets:compile & npm run render",
     "dev": "npm run assets:copy & npm run assets:images & npm run watch & npm run browserSync",
-    "deploy": "git push origin `git subtree split --prefix public/ dev`:master --force"
+    "push": "git push origin `git subtree split --prefix public/ dev`:master --force",
+    "deploy": "npm run compile && npm run push"
   },
   "author": "Haithem Bel Haj <haythem.belhaj@gmail.com> (http://haithembelhaj.github.io)",
   "license": "ISC",
