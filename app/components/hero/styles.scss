@@ -1,0 +1,156 @@
+$r: rgba(255, 0, 0, 0.5);
+$g: rgba(0, 255, 0, 0.5);
+$b: rgba(0, 0, 255, 0.5);
+
+.hero {
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+
+  .hero-background {
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+
+  &--contacts {
+
+    display: flex;
+    position: relative;
+    z-index: 1;
+  }
+
+  &--contact {
+
+    display: block;
+    width: rem(25);
+    height: rem(25);
+    margin: rem(13);
+
+    background-size: contain;
+    background-position: center;
+
+    @each $logo in (email, twitter, github, xing) {
+
+      &.is-#{$logo} {
+
+        position: relative;
+        background-image: svg('#{$logo}.svg');
+
+        &:before,
+        &:after {
+
+          content: '';
+          display: none;
+          position: absolute;
+          width: rem(25);
+          height: rem(25);
+
+          background-size: contain;
+          background-position: center;
+        }
+
+        &:before {
+
+          left: rem(5);
+          background-image: svg('#{$logo}.svg', (path: (fill: $b)));
+        }
+
+
+        &:after {
+
+          right: rem(5);
+          background-image: svg('#{$logo}.svg', (path: (fill: $r)));
+        }
+
+        &:hover {
+
+          background-image: svg('#{$logo}.svg', (path: (fill: $g)));
+          animation: shift 2s infinite alternate;
+
+          &:before,
+          &:after {
+
+            display: block;
+            animation: shift 2s infinite alternate;
+          }
+        }
+      }
+    }
+  }
+
+  &--headline,
+  &--subheadline {
+
+    position: relative;
+    width: 60vw;
+
+    color: white;
+    z-index: 1;
+
+    @include media(l) {
+
+      width: rem(600);
+    }
+  }
+  
+  &--headline {
+    
+    @extend %h1;
+
+    margin-bottom: rem(30);
+  }
+
+  &--subheadline {
+
+    @extend %h2;
+  }
+}
+
+@keyframes shift{
+  0%{
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  6%{
+    transform:rotate(1deg) scale(1.1);
+    opacity: 1;
+  }
+  10%{
+    transform:rotate(0deg);
+    opacity: 0.6;
+  }
+  12%{
+    opacity: 1;
+  }
+  58%{
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  59%{
+    opacity:0.6;
+  }
+  62%{
+    transform: rotate(-1deg) scale(1.1);
+    opacity: 1;
+  }
+  64%{
+    transform: rotate(-1.75deg) scale(1.1);
+  }
+  67%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}

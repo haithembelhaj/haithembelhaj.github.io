@@ -1,0 +1,20 @@
+
+
+.hero-background {
+
+  position: relative;
+  background: radial-gradient(circle 50vw at 50% 50%, rgba(black, 1) 0%, rgba(black, 0.6) 100%), url('/assets/images/galaxy-wallpaper.jpg');
+  background-size: auto, cover;
+  background-position: center;
+
+  &:after {
+
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/assets/images/noise.png');
+  }
+}

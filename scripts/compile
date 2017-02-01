@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const argv = require('optimist').argv;
+const Queue = require('bluebird-queue');
+const glob = require('glob');
+const dependencyTree = require('dependency-tree');
+const config = require(path.resolve(__dirname, '../lib/config'));
+const compile = require(path.resolve(__dirname, '../lib/assets')).compile;
+
+const viewRegexp = /views\/(.*)\/template\.jsx/;
+
+const options = {
+
+  production: argv.production,
+  view: argv.view || '.'
+};
+
+// options is optional
+glob(`${config.srcPath}/views/${options.view}/**/*.jsx`, function (err, files) {
+
+  // create a concurrent queue
+  const queue = new Queue({
+    concurrency: argv.concurrency || 1
+  });
+
+  queue.add(files.map((file) => compile.bind(null, getAssets(file), options)));
+
+  if(err) {
+
+    throw err;
+  }
+
+  queue
+    .start()
+    .then(() => {
+
+      process.exit();
+    })
+    .catch((err) => {
+
+      console.error(err);
+
+      throw err;
+    });
+});
+
+// get assets for the templates
+function getAssets(template) {
+
+  const assets = {
+
+    view: template.match(viewRegexp)[1]
+  };
+
+  // get the dependency tree for all required files
+  let deps = dependencyTree.toList({
+    filename: template,
+    directory: '/'
+  });
+
+  deps = deps.filter((file) => file.indexOf('template.jsx') > -1 );
+
+  // map deps to scritps ans styles
+  assets.scripts = deps.map((file) => file.replace('template.jsx', 'scripts.js'));
+  assets.styles = deps.map((file) => file.replace('template.jsx', 'styles.scss'));
+
+  return assets;
+}
+

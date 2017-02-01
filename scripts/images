@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const imagemin = require('imagemin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminPngquant = require('imagemin-pngquant');
+
+const config = require(path.resolve(__dirname, '../lib/config'));
+
+imagemin([`${config.srcPath}/assets/**/*.{jpg,png}`], `${config.destPath}/assets/images`, {
+  plugins: [
+    imageminMozjpeg({quality: 5}),
+    imageminPngquant({quality: '65-80'})
+  ]
+}).then(files => {
+  console.log(files);
+  //=> [{data: <Buffer 89 50 4e …>, path: 'build/images/foo.jpg'}, …]
+});
+

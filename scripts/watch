@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+const cp       = require('child_process');
+const _        = require('lodash');
+const path     = require('path');
+const config   = require('../lib/config');
+
+const chokidar = require('chokidar');
+const watcher  = chokidar.watch(config.srcPath + '/**/*.?(js|jsx|scss)');
+
+let compile;
+
+watcher.on('change', _.debounce((filePath) => {
+
+  console.log(`File ${filePath} changed`);
+
+  compile && compile.kill();
+
+  compile = cp.exec(path.resolve(__dirname, 'compile'), (err, stdout, stderr) => {
+
+    err    && console.error(err);
+    stdout && console.log(stdout);
+    stderr && console.warn(stderr);
+  });
+
+  compile.stdout.on('data', function (data) {
+
+    console.log('compile stdout: ' + data.toString());
+  });
+
+  compile.stderr.on('data', function (data) {
+
+    console.log('compile stderr: ' + data.toString());
+  });
+
+  compile.on('exit', function (code) {
+
+    console.log('compile exited with code ' + (code !== null && code.toString()));
+  });
+
+}, 200));
+
+
+

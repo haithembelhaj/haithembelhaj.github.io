@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+const Promise = require('bluebird');
+const fs = Promise.promisifyAll(require('fs'));
+const path = require('path');
+const argv = require('optimist').argv;
+const config = require(path.resolve(__dirname, '../lib/config'));
+const render = require(path.resolve(__dirname, '../lib/templating/render'));
+
+const view = argv.view;
+
+if(!view) {
+
+  return console.error('view must be defined');
+}
+
+render(path.resolve(config.srcPath, `views/${view}/template.jsx`), {
+  page: {
+    title: 'A fullstack develper!',
+    description: 'Hi! I\'m a frontend engineer with serious backend skills',
+  }
+}).then((html) => {
+
+  return fs.writeFileSyncAsync(path.resolve(config.destPath, view + '.html'), html, {});
+
+}).catch((e)=> console.error(e));
