@@ -9,7 +9,7 @@ const config = require(path.resolve(__dirname, '../lib/config'));
 
 imagemin([`${config.srcPath}/assets/**/*.{jpg,png}`], `${config.destPath}/assets/images`, {
   plugins: [
-    imageminMozjpeg({quality: 5}),
+    imageminMozjpeg({quality: 30}),
     imageminPngquant({quality: '65-80'})
   ]
 }).then(files => {
