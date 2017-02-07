@@ -1,0 +1,43 @@
+.about {
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  background-image: radial-gradient(circle 50vw at 50% 50%, rgba(white, 1) 0%, rgba(white, 0.2) 100%), url('/assets/images/mountain.jpg');
+  background-size: auto, cover;
+  background-position: center;
+
+  overflow: hidden;
+
+  @include noise;
+
+  &--container {
+
+    position: relative;
+    width: 60vw;
+
+    z-index: 1;
+
+    @include media(l) {
+
+      width: rem(600);
+    }
+  }
+
+  &--image {
+
+    border-radius: 100%;
+    width: rem(220);
+    height: rem(220);
+    margin: rem(50) 0;
+  }
+
+  &--text {
+
+    @extend %h2;
+    margin-bottom: 1.1em;
+  }
+}

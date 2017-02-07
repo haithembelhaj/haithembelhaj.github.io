@@ -1,3 +1,1 @@
-import Hero from './template.jsx';
-
-export default Hero;
+export {default as default} from './template.jsx';

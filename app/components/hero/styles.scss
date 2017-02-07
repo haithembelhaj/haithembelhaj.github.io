@@ -10,10 +10,17 @@ $b: rgba(0, 0, 255, 0.5);
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 100vw;
   height: 100vh;
 
-  .hero-background {
+  background-image: radial-gradient(circle 50vw at 50% 50%, rgba(black, 1) 0%, rgba(black, 0.6) 100%), url('/assets/images/galaxy-wallpaper.jpg');
+  background-size: auto, cover;
+  background-position: center;
+
+  border-bottom: rem(1) solid black;
+
+  overflow: hidden;
+
+  .background {
     
     position: absolute;
     top: 0;
@@ -21,6 +28,8 @@ $b: rgba(0, 0, 255, 0.5);
     right: 0;
     bottom: 0;
     z-index: 0;
+
+
   }
 
   &--contacts {

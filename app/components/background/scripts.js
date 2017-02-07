@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 import * as THREE from 'three';
-import RGBShiftShader from './shaders/rgb-shift';
+import RGBShiftShader from '../../libs/shaders/rgb-shift';
 
 const EffectComposer = require('three-effectcomposer')(THREE);
 
 import Template from './template.jsx';
 
-export default class HeroBackground extends Component {
+export default class Background extends Component {
 
   constructor(props) {
 
@@ -29,10 +29,12 @@ export default class HeroBackground extends Component {
 
     this.meshes = [];
 
-    for (let i = 0; i < 6; i++) {
+    const NUMBEROFITEMS = 6;
+
+    for (let i = 0; i < NUMBEROFITEMS; i++) {
 
       const mesh = new THREE.Mesh(i % 2 === 0 ? cudeGeometry : pyramidGeometry, material);
-      const angle = i * Math.PI / 3 + Math.PI / 12 * Math.random() + Math.PI / 12;
+      const angle = i * 2 * Math.PI / NUMBEROFITEMS + Math.PI / 12 * Math.random() + Math.PI / 12;
 
       mesh.position.x = Math.sin(angle) * 300;
       mesh.position.y = Math.cos(angle) * 300;
@@ -103,7 +105,16 @@ export default class HeroBackground extends Component {
       mesh.rotation.y += 0.001 + Math.random() * 0.001;
     });
 
-    this.rgbEffect.uniforms.amount.value = time % 2000 < Math.random() * 200 ? Math.random() / 100 : 0;
+    if(time % 4000 < 400) {
+
+      this.rgbEffect.uniforms.amount.value = Math.random() / 100;
+      this.rgbEffect.uniforms.angle.value = Math.random() * 10;
+
+    } else {
+
+      this.rgbEffect.uniforms.amount.value = 0;
+      this.rgbEffect.uniforms.angle.value = 0;
+    }
 
     this.renderer.clear();
     this.composer.render();
