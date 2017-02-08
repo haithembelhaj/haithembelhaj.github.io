@@ -16,7 +16,7 @@ watcher.on('change', _.debounce((filePath) => {
 
   compile && compile.kill();
 
-  compile = cp.exec(path.resolve(__dirname, 'compile'), (err, stdout, stderr) => {
+  compile = cp.exec(path.resolve(__dirname, 'compile --view index'), (err, stdout, stderr) => {
 
     err    && console.error(err);
     stdout && console.log(stdout);

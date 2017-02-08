@@ -106,13 +106,13 @@
 	    _this.onWindowResize = _this.onWindowResize.bind(_this);
 	    _this.animate = _this.animate.bind(_this);
 
-	    _this.camera = new THREE.PerspectiveCamera(70, _this.width / _this.height, 1, 1000);
-	    _this.camera.position.z = 400;
+	    _this.camera = new THREE.PerspectiveCamera(50, _this.width / _this.height, 1, 10000);
+	    _this.camera.position.z = 1000;
 	    _this.scene = new THREE.Scene();
 
-	    var material = new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
+	    var material = new THREE.MeshPhongMaterial({ color: 0xffffff, emissive: 0x000000, side: THREE.DoubleSide, shading: THREE.FlatShading, opacity: 0.7 });
 	    var cudeGeometry = new THREE.BoxBufferGeometry(70, 70, 70);
-	    var pyramidGeometry = new THREE.CylinderGeometry(1, 70, 100, 4);
+	    var pyramidGeometry = new THREE.ConeGeometry(70, 70, 3);
 
 	    _this.meshes = [];
 
@@ -123,8 +123,8 @@
 	      var mesh = new THREE.Mesh(i % 2 === 0 ? cudeGeometry : pyramidGeometry, material);
 	      var angle = i * 2 * Math.PI / NUMBEROFITEMS + Math.PI / 12 * Math.random() + Math.PI / 12;
 
-	      mesh.position.x = Math.sin(angle) * 300;
-	      mesh.position.y = Math.cos(angle) * 300;
+	      mesh.position.x = Math.sin(angle) * 400;
+	      mesh.position.y = Math.cos(angle) * 400;
 	      mesh.position.z = Math.random() * -100;
 
 	      _this.scene.add(mesh);

@@ -21,7 +21,7 @@ glob(`${config.srcPath}/views/${options.view}/**/*.jsx`, function (err, files) {
 
   // create a concurrent queue
   const queue = new Queue({
-    concurrency: argv.concurrency || 1
+    concurrency: argv.concurrency || 2
   });
 
   queue.add(files.map((file) => compile.bind(null, getAssets(file), options)));

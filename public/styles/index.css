@@ -1807,7 +1807,7 @@ body {
     right: 0;
     bottom: 0;
     background: url("/assets/images/noise.png");
-    opacity: 0.5; }
+    opacity: 0.6; }
   .about--container {
     position: relative;
     width: 60vw;
@@ -2000,4 +2000,4 @@ body {
     right: 0;
     bottom: 0;
     background: url("/assets/images/noise.png");
-    opacity: 0.5; }
+    opacity: 0.6; }

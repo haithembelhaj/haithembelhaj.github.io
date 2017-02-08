@@ -19,13 +19,13 @@ export default class Background extends Component {
     this.onWindowResize = this.onWindowResize.bind(this);
     this.animate = this.animate.bind(this);
 
-    this.camera = new THREE.PerspectiveCamera(70, this.width / this.height, 1, 1000);
-    this.camera.position.z = 400;
+    this.camera = new THREE.PerspectiveCamera(50, this.width / this.height, 1, 10000);
+    this.camera.position.z = 1000;
     this.scene = new THREE.Scene();
 
-    const material = new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.8});
+    const material = new THREE.MeshPhongMaterial({color: 0xffffff, emissive: 0x000000, side: THREE.DoubleSide, shading: THREE.FlatShading, opacity: 0.7});
     const cudeGeometry = new THREE.BoxBufferGeometry(70, 70, 70);
-    const pyramidGeometry = new THREE.CylinderGeometry(1, 70, 100, 4);
+    const pyramidGeometry = new THREE.ConeGeometry(70, 70, 3);
 
     this.meshes = [];
 
@@ -36,8 +36,8 @@ export default class Background extends Component {
       const mesh = new THREE.Mesh(i % 2 === 0 ? cudeGeometry : pyramidGeometry, material);
       const angle = i * 2 * Math.PI / NUMBEROFITEMS + Math.PI / 12 * Math.random() + Math.PI / 12;
 
-      mesh.position.x = Math.sin(angle) * 300;
-      mesh.position.y = Math.cos(angle) * 300;
+      mesh.position.x = Math.sin(angle) * 400;
+      mesh.position.y = Math.cos(angle) * 400;
       mesh.position.z = Math.random() * -100;
 
       this.scene.add(mesh);
