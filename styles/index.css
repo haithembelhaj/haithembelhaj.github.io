@@ -1807,7 +1807,7 @@ body {
     right: 0;
     bottom: 0;
     background: url("/assets/images/noise.png");
-    opacity: 0.6; }
+    opacity: 0.65; }
   .about--container {
     position: relative;
     width: 60vw;
@@ -1822,6 +1822,12 @@ body {
     margin: 2.77778rem 0; }
   .about--text {
     margin-bottom: 1.1em; }
+  .about canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; }
 
 .hero {
   position: relative;
@@ -1838,7 +1844,6 @@ body {
   background-image: radial-gradient(circle 50vw at 50% 50%, black 0%, rgba(0, 0, 0, 0.6) 100%), url("/assets/images/galaxy-wallpaper.jpg");
   background-size: auto, cover;
   background-position: center;
-  border-bottom: 0.05556rem solid black;
   overflow: hidden; }
   .hero .background {
     position: absolute;
@@ -2000,4 +2005,4 @@ body {
     right: 0;
     bottom: 0;
     background: url("/assets/images/noise.png");
-    opacity: 0.6; }
+    opacity: 0.65; }
