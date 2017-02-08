@@ -23,18 +23,18 @@ export default class Background extends Component {
     this.camera.position.z = 1000;
     this.scene = new THREE.Scene();
 
-    const material = new THREE.MeshPhongMaterial({color: 0xffffff, emissive: 0x000000, side: THREE.DoubleSide, shading: THREE.FlatShading, opacity: 0.7});
+    const material = new THREE.MeshPhongMaterial({color: 0xffffff, emissive: 0x000000, shading: THREE.FlatShading, opacity: 0.7});
     const cudeGeometry = new THREE.BoxBufferGeometry(70, 70, 70);
     const pyramidGeometry = new THREE.ConeGeometry(70, 70, 3);
 
     this.meshes = [];
 
-    const NUMBEROFITEMS = 6;
+    const NUMBEROFITEMS = 4;
 
     for (let i = 0; i < NUMBEROFITEMS; i++) {
 
       const mesh = new THREE.Mesh(i % 2 === 0 ? cudeGeometry : pyramidGeometry, material);
-      const angle = i * 2 * Math.PI / NUMBEROFITEMS + Math.PI / 12 * Math.random() + Math.PI / 12;
+      const angle = i * 2 * Math.PI / NUMBEROFITEMS + Math.PI / 12 * Math.random() + Math.PI / 6;
 
       mesh.position.x = Math.sin(angle) * 400;
       mesh.position.y = Math.cos(angle) * 400;

@@ -110,18 +110,18 @@
 	    _this.camera.position.z = 1000;
 	    _this.scene = new THREE.Scene();
 
-	    var material = new THREE.MeshPhongMaterial({ color: 0xffffff, emissive: 0x000000, side: THREE.DoubleSide, shading: THREE.FlatShading, opacity: 0.7 });
+	    var material = new THREE.MeshPhongMaterial({ color: 0xffffff, emissive: 0x000000, shading: THREE.FlatShading, opacity: 0.7 });
 	    var cudeGeometry = new THREE.BoxBufferGeometry(70, 70, 70);
 	    var pyramidGeometry = new THREE.ConeGeometry(70, 70, 3);
 
 	    _this.meshes = [];
 
-	    var NUMBEROFITEMS = 6;
+	    var NUMBEROFITEMS = 4;
 
 	    for (var i = 0; i < NUMBEROFITEMS; i++) {
 
 	      var mesh = new THREE.Mesh(i % 2 === 0 ? cudeGeometry : pyramidGeometry, material);
-	      var angle = i * 2 * Math.PI / NUMBEROFITEMS + Math.PI / 12 * Math.random() + Math.PI / 12;
+	      var angle = i * 2 * Math.PI / NUMBEROFITEMS + Math.PI / 12 * Math.random() + Math.PI / 6;
 
 	      mesh.position.x = Math.sin(angle) * 400;
 	      mesh.position.y = Math.cos(angle) * 400;
@@ -65515,13 +65515,179 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(33);
+
+	var _three = __webpack_require__(179);
+
+	var THREE = _interopRequireWildcard(_three);
+
+	var _rgbShift = __webpack_require__(180);
+
+	var _rgbShift2 = _interopRequireDefault(_rgbShift);
+
 	var _template = __webpack_require__(191);
 
 	var _template2 = _interopRequireDefault(_template);
 
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _template2.default;
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var EffectComposer = __webpack_require__(182)(THREE);
+
+	var Background = function (_Component) {
+	  _inherits(Background, _Component);
+
+	  function Background(props) {
+	    _classCallCheck(this, Background);
+
+	    var _this = _possibleConstructorReturn(this, (Background.__proto__ || Object.getPrototypeOf(Background)).call(this, props));
+
+	    _this.width = window.innerWidth;
+	    _this.height = window.innerHeight;
+
+	    _this.setSizesAndPositions = _this.setSizesAndPositions.bind(_this);
+	    _this.animate = _this.animate.bind(_this);
+
+	    _this.camera = new THREE.PerspectiveCamera(50, _this.width / _this.height, 1, 10000);
+	    _this.camera.position.z = 1000;
+	    _this.scene = new THREE.Scene();
+
+	    var material = new THREE.MeshPhongMaterial({ color: 0xffffff, emissive: 0x000000, shading: THREE.FlatShading, opacity: 0.7, transparent: true });
+	    var icoGeometry = new THREE.IcosahedronGeometry(70, 1);
+
+	    _this.mesh = new THREE.Mesh(icoGeometry, material);
+
+	    _this.scene.add(_this.mesh);
+
+	    _this.renderer = new THREE.WebGLRenderer({ alpha: true });
+	    _this.renderer.setPixelRatio(window.devicePixelRatio);
+	    _this.renderer.setSize(_this.width, _this.height);
+
+	    _this.scene.fog = new THREE.Fog(0xffffff, 1, 5000);
+
+	    _this.scene.add(new THREE.AmbientLight(0x222222));
+
+	    _this.light = new THREE.DirectionalLight(0xffffff);
+	    _this.light.position.set(-1, 1, 0);
+
+	    _this.scene.add(_this.light);
+
+	    // postprocessing
+	    var parameters = {
+	      minFilter: THREE.LinearFilter,
+	      magFilter: THREE.LinearFilter,
+	      format: THREE.RGBAFormat,
+	      stencilBuffer: false
+	    };
+	    var renderTarget = new THREE.WebGLRenderTarget(_this.width, _this.height, parameters);
+
+	    _this.composer = new EffectComposer(_this.renderer, renderTarget);
+	    _this.composer.addPass(new EffectComposer.RenderPass(_this.scene, _this.camera));
+
+	    _this.rgbEffect = new EffectComposer.ShaderPass(_rgbShift2.default);
+	    _this.rgbEffect.uniforms.amount.value = 0.0015;
+	    _this.rgbEffect.renderToScreen = true;
+
+	    _this.composer.addPass(_this.rgbEffect);
+
+	    _this.setSizesAndPositions();
+	    return _this;
+	  }
+
+	  _createClass(Background, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+
+	      window.addEventListener('resize', this.setSizesAndPositions, false);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+
+	      window.removeEventListener('resize', this.setSizesAndPositions);
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+
+	      this.node = (0, _reactDom.findDOMNode)(this);
+
+	      this.node.appendChild(this.renderer.domElement);
+
+	      this.animate();
+	    }
+	  }, {
+	    key: 'animate',
+	    value: function animate() {
+
+	      requestAnimationFrame(this.animate);
+
+	      this.mesh.rotation.x += 0.001 + Math.random() * 0.001;
+	      this.mesh.rotation.y += 0.001 + Math.random() * 0.001;
+
+	      if (Date.now() % 4000 < 400) {
+
+	        this.rgbEffect.uniforms.amount.value = Math.random() / 100;
+	        this.rgbEffect.uniforms.angle.value = Math.random() * 10;
+	      } else {
+
+	        this.rgbEffect.uniforms.amount.value = 0;
+	        this.rgbEffect.uniforms.angle.value = 0;
+	      }
+
+	      this.renderer.clear();
+	      this.composer.render();
+	    }
+	  }, {
+	    key: 'setSizesAndPositions',
+	    value: function setSizesAndPositions() {
+
+	      this.width = window.innerWidth;
+	      this.height = window.innerHeight;
+
+	      if (this.width < 667) {
+
+	        this.mesh.position.x = 500;
+	        this.mesh.position.y = 200;
+	        this.mesh.position.z = -1500;
+	      } else {
+
+	        this.mesh.position.x = 700;
+	        this.mesh.position.y = -100;
+	        this.mesh.position.z = -1500;
+	      }
+
+	      this.camera.aspect = this.width / this.height;
+
+	      this.camera.updateProjectionMatrix();
+
+	      this.renderer.setSize(this.width, this.height);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      return _react2.default.createElement(_template2.default, null);
+	    }
+	  }]);
+
+	  return Background;
+	}(_react.Component);
+
+	exports.default = Background;
 
 /***/ },
 /* 191 */

@@ -40,4 +40,13 @@
     @extend %h2;
     margin-bottom: 1.1em;
   }
+
+  canvas {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
