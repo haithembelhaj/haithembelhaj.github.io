@@ -13,15 +13,22 @@ const viewRegexp = /views\/(.*)\/template\.jsx/;
 const options = {
 
   production: argv.production,
-  view: argv.view || '.'
+  view: argv.view || '.',
+  scripts: argv.scripts,
+  styles: argv.styles
 };
+
+module.exports = function(options) {
+
+
+}
 
 // options is optional
 glob(`${config.srcPath}/views/${options.view}/**/*.jsx`, function (err, files) {
 
   // create a concurrent queue
   const queue = new Queue({
-    concurrency: argv.concurrency || 2
+    concurrency: argv.concurrency || 1
   });
 
   queue.add(files.map((file) => compile.bind(null, getAssets(file), options)));
@@ -62,8 +69,16 @@ function getAssets(template) {
   deps = deps.filter((file) => file.indexOf('template.jsx') > -1 );
 
   // map deps to scritps ans styles
-  assets.scripts = deps.map((file) => file.replace('template.jsx', 'scripts.js'));
-  assets.styles = deps.map((file) => file.replace('template.jsx', 'styles.scss'));
+
+  if(options.scripts) {
+
+    assets.scripts = [template.replace('template.jsx', 'scripts.js')];
+  }
+
+  if(options.styles) {
+
+    assets.styles = deps.map((file) => file.replace('template.jsx', 'styles.scss'));
+  }
 
   return assets;
 }

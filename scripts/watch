@@ -1,34 +1,35 @@
 #!/usr/bin/env node
 
-const cp       = require('child_process');
-const _        = require('lodash');
-const path     = require('path');
-const config   = require('../lib/config');
+const cp = require('child_process');
+const _ = require('lodash');
+const path = require('path');
+const config = require('../lib/config');
 
 const chokidar = require('chokidar');
-const watcher  = chokidar.watch(config.srcPath + '/**/*.?(js|jsx|scss)');
+const watcher = chokidar.watch(config.srcPath + '/**/*.?(js|jsx|scss)');
 
 let compile;
 
-watcher.on('change', _.debounce((filePath) => {
+console.log('watching for changes!');
+
+watcher.on('change', (filePath) => {
 
   console.log(`File ${filePath} changed`);
 
   compile && compile.kill();
 
-  compile = cp.exec(path.resolve(__dirname, 'compile --view index'), (err, stdout, stderr) => {
+  const parsedPath = path.parse(filePath);
+  const ext = parsedPath.ext;
+  const args = `--view index --${ext === 'scss' ? 'styles' : 'scripts'}`.split(' ');
 
-    err    && console.error(err);
-    stdout && console.log(stdout);
-    stderr && console.warn(stderr);
-  });
+  compile = cp.fork(path.resolve(__dirname, 'compile'), args);
 
-  compile.stdout.on('data', function (data) {
+  compile.stdout && compile.stdout.on('data', function (data) {
 
     console.log('compile stdout: ' + data.toString());
   });
 
-  compile.stderr.on('data', function (data) {
+  compile.stderr && compile.stderr.on('data', function (data) {
 
     console.log('compile stderr: ' + data.toString());
   });
@@ -38,7 +39,8 @@ watcher.on('change', _.debounce((filePath) => {
     console.log('compile exited with code ' + (code !== null && code.toString()));
   });
 
-}, 200));
+  console.log('watching for changes!');
+});
 
 
 
