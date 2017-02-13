@@ -65694,9 +65694,12 @@
 	    _react2.default.createElement(
 	      'h1',
 	      { className: 'hero--headline' },
-	      'Hi! ',
-	      _react2.default.createElement('br', null),
-	      'I\'m a frontend engineer with some serious backend skills.'
+	      'Hi! '
+	    ),
+	    _react2.default.createElement(
+	      'h1',
+	      { className: 'hero--headline' },
+	      ' I\'m a frontend engineer with some serious backend skills.'
 	    )
 	  );
 	};

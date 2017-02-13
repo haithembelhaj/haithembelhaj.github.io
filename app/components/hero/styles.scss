@@ -42,11 +42,37 @@
     
     @extend %h1;
 
-    margin-bottom: rem(30);
+    //margin-bottom: rem(30);
+    opacity: 0;
+    animation: reveal 1s ease;
+    animation-fill-mode: forwards;
+
+    @for $i from 1 through 2 {
+
+      &:nth-of-type(#{$i}) {
+
+        animation-delay: $i * 2s;
+      }
+    }
   }
 
   &--subheadline {
 
     @extend %h2;
+  }
+}
+
+@keyframes reveal {
+
+  from {
+
+    opacity: 0;
+    transform: translate(0, 50%);
+  }
+
+  to {
+
+    opacity: 1;
+    transform: translate(0, 0);
   }
 }
