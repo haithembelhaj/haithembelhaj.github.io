@@ -11,8 +11,8 @@ export default () => {
       <Image src="/assets/images/profile.jpg" />
       <p className="contact--text">
         That's me! <br/>
-        I'm currently living in Berlin and interested in remote work <br/>
-        So please feel free to contact me!
+        I'm currently living in the amazing city of Berlin but also interested in remote work.<br/>
+        So check me out!
       </p>
       <Links></Links>
     </section>

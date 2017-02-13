@@ -65895,13 +65895,7 @@
 	      _react2.default.createElement(
 	        "p",
 	        { className: "about--text" },
-	        "I like to build my own ",
-	        _react2.default.createElement(
-	          "a",
-	          { href: "" },
-	          "tools"
-	        ),
-	        "."
+	        "I like to build my own tools."
 	      ),
 	      _react2.default.createElement(
 	        "p",
@@ -67578,9 +67572,9 @@
 	      { className: 'contact--text' },
 	      'That\'s me! ',
 	      _react2.default.createElement('br', null),
-	      'I\'m currently living in Berlin and interested in remote work ',
+	      'I\'m currently living in the amazing city of Berlin but also interested in remote work.',
 	      _react2.default.createElement('br', null),
-	      'So please feel free to contact me!'
+	      'So check me out!'
 	    ),
 	    _react2.default.createElement(_scripts2.default, null)
 	  );
