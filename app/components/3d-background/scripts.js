@@ -1,23 +1,17 @@
-import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
+import React from 'react';
 import * as THREE from 'three';
 import RGBShiftShader from '../../libs/shaders/rgb-shift';
-
 const EffectComposer = require('three-effectcomposer')(THREE);
+
+import THREEComponent from '../three';
 
 import Template from './template.jsx';
 
-export default class Background extends Component {
+export default class Background extends THREEComponent {
 
   constructor(props) {
 
     super(props);
-
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-
-    this.onWindowResize = this.onWindowResize.bind(this);
-    this.animate = this.animate.bind(this);
 
     this.camera = new THREE.PerspectiveCamera(50, this.width / this.height, 1, 10000);
     this.camera.position.z = 1000;
@@ -43,10 +37,6 @@ export default class Background extends Component {
       this.scene.add(mesh);
       this.meshes.push(mesh);
     }
-
-    this.renderer = new THREE.WebGLRenderer({alpha: true});
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.width, this.height);
 
     this.scene.add(new THREE.AmbientLight(0x222222));
 
@@ -74,28 +64,9 @@ export default class Background extends Component {
     this.composer.addPass(this.rgbEffect);
   }
 
-  componentWillMount() {
+  draw() {
 
-    window.addEventListener('resize', this.onWindowResize, false);
-  }
-
-  componentWillUnmount() {
-
-    window.removeEventListener('resize', this.onWindowResize);
-  }
-
-  componentDidMount() {
-
-    this.node = findDOMNode(this);
-
-    this.node.appendChild(this.renderer.domElement);
-
-    this.animate();
-  }
-
-  animate() {
-
-    requestAnimationFrame(this.animate);
+    this.animationId = requestAnimationFrame(this.draw);
 
     const time = Date.now();
 
@@ -118,18 +89,6 @@ export default class Background extends Component {
 
     this.renderer.clear();
     this.composer.render();
-  }
-
-  onWindowResize() {
-
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-
-    this.camera.aspect = this.width / this.height;
-
-    this.camera.updateProjectionMatrix();
-
-    this.renderer.setSize(this.width, this.height);
   }
 
   render() {

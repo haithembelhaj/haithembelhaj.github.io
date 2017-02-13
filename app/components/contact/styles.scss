@@ -1,4 +1,5 @@
-.hero {
+
+.contact {
 
   position: relative;
   display: flex;
@@ -7,24 +8,41 @@
   align-items: center;
   text-align: center;
   height: 100vh;
-
-  background: radial-gradient(circle 50vw at 50% 50%, rgba(black, 0.9) 0%, rgba(black, 0.6) 100%), url('/assets/images/galaxy-wallpaper.jpg') center;
-  background-size: auto, cover;
+  background-image: url('/assets/images/nebula.jpg');
+  background-size: cover;
 
   overflow: hidden;
 
-  .background {
-    
+  .clouds {
+
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 0;
+
+    @include noise;
   }
 
-  &--headline,
-  &--subheadline {
+  .image {
+
+    position: relative;
+    width: rem(200);
+    height: rem(200);
+    border-radius: 100%;
+    margin-bottom: rem(50);
+
+    z-index: 1;
+  }
+
+  .links {
+
+    margin-top: rem(20);
+  }
+
+  &--text {
+
+    @extend %h2;
 
     position: relative;
     width: 60vw;
@@ -36,17 +54,5 @@
 
       width: rem(600);
     }
-  }
-  
-  &--headline {
-    
-    @extend %h1;
-
-    margin-bottom: rem(30);
-  }
-
-  &--subheadline {
-
-    @extend %h2;
   }
 }

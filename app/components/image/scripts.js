@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
+import InViewComponent from '../in-view';
 import Template from './template.jsx';
 import {getDataUri} from '../../libs/image';
 
 const maxErrors = 130;
+const maxGlitches = 60;
 const imagePrefix = 'data:image/jpeg;base64,';
 
-export default class ImageComponent extends Component {
+export default class ImageComponent extends InViewComponent {
 
   constructor(props) {
 
@@ -13,7 +15,9 @@ export default class ImageComponent extends Component {
 
     this.state = Object.assign({}, props);
 
-    this.animate = this.animate.bind(this);
+    this.draw = this.draw.bind(this);
+
+    this.glitches = [];
 
     getDataUri(this.props.src, 'jpeg', 0.8).then((dataUri) => {
 
@@ -21,12 +25,25 @@ export default class ImageComponent extends Component {
     });
   }
 
-  componentDidMount() {
+  inViewChange(inView) {
 
-    this.animate();
+    super.inViewChange(inView);
+
+    if(!inView) {
+
+      return cancelAnimationFrame(this.animationId);
+    }
+
+    this.draw();
   }
 
+
   glitch() {
+
+    if(this.glitches.length === maxGlitches) {
+
+      return this.glitches[Math.round(Math.random() * (maxGlitches - 1))];
+    }
 
     let corrupted = this.imageData;
 
@@ -42,15 +59,22 @@ export default class ImageComponent extends Component {
       }
     }
 
+    this.glitches.push(corrupted);
+
     return corrupted;
   }
 
-  animate() {
+  draw() {
 
-    requestAnimationFrame(this.animate);
+    this.animationId = requestAnimationFrame(this.draw);
+
+    if(!this.imageData) {
+
+      return;
+    }
 
     const time = Date.now();
-    const src = (time % 5000 < 400) ? imagePrefix + this.glitch() : this.props.src;
+    const src = (time % 7000 < 1000) ? imagePrefix + this.glitch() : this.props.src;
 
     this.setState({src});
   }

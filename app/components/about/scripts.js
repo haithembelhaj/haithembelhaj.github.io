@@ -1,23 +1,16 @@
-import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
+import React from 'react';
 import * as THREE from 'three';
 import RGBShiftShader from '../../libs/shaders/rgb-shift';
-
 const EffectComposer = require('three-effectcomposer')(THREE);
 
+import THREEComponent from '../three';
 import Template from './template.jsx';
 
-export default class Background extends Component {
+export default class Background extends THREEComponent {
 
   constructor(props) {
 
     super(props);
-
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-
-    this.setSizesAndPositions = this.setSizesAndPositions.bind(this);
-    this.animate = this.animate.bind(this);
 
     this.camera = new THREE.PerspectiveCamera(50, this.width / this.height, 1, 10000);
     this.camera.position.z = 1000;
@@ -29,10 +22,6 @@ export default class Background extends Component {
     this.mesh = new THREE.Mesh(icoGeometry, material);
     
     this.scene.add(this.mesh);
-
-    this.renderer = new THREE.WebGLRenderer({alpha: true});
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.width, this.height);
 
     this.scene.fog = new THREE.Fog(0xffffff, 1, 5000);
 
@@ -61,31 +50,12 @@ export default class Background extends Component {
 
     this.composer.addPass(this.rgbEffect);
 
-    this.setSizesAndPositions();
+    this.onWindowResize();
   }
 
-  componentWillMount() {
+  draw() {
 
-    window.addEventListener('resize', this.setSizesAndPositions, false);
-  }
-
-  componentWillUnmount() {
-
-    window.removeEventListener('resize', this.setSizesAndPositions);
-  }
-
-  componentDidMount() {
-
-    this.node = findDOMNode(this);
-
-    this.node.appendChild(this.renderer.domElement);
-
-    this.animate();
-  }
-
-  animate() {
-
-    requestAnimationFrame(this.animate);
+    super.draw();
 
     this.mesh.rotation.x += 0.001 + Math.random() * 0.001;
     this.mesh.rotation.y += 0.001 + Math.random() * 0.001;
@@ -105,10 +75,9 @@ export default class Background extends Component {
     this.composer.render();
   }
 
-  setSizesAndPositions() {
+  onWindowResize() {
 
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    super.onWindowResize();
 
     if(this.width < 667) {
 
@@ -122,12 +91,6 @@ export default class Background extends Component {
       this.mesh.position.y = -100;
       this.mesh.position.z = -1500;
     }
-
-    this.camera.aspect = this.width / this.height;
-
-    this.camera.updateProjectionMatrix();
-
-    this.renderer.setSize(this.width, this.height);
   }
 
   render() {
