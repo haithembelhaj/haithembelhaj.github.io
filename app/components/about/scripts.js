@@ -60,7 +60,7 @@ export default class Background extends THREEComponent {
     this.mesh.rotation.x += 0.001 + Math.random() * 0.001;
     this.mesh.rotation.y += 0.001 + Math.random() * 0.001;
 
-    if(Date.now() % 4000 < 400) {
+    if(new Date().getTime() % 4000 < 400) {
 
       this.rgbEffect.uniforms.amount.value = Math.random() / 100;
       this.rgbEffect.uniforms.angle.value = Math.random() * 10;

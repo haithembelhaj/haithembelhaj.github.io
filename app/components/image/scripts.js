@@ -39,7 +39,7 @@ export default class ImageComponent extends InViewComponent {
       return cancelAnimationFrame(this.animationId);
     }
 
-    this.startTime = Date.now();
+    this.startTime = new Date().getTime();
     this.draw();
   }
 
@@ -79,7 +79,7 @@ export default class ImageComponent extends InViewComponent {
       return;
     }
 
-    const time = Date.now() - this.startTime;
+    const time = new Date().getTime() - this.startTime;
     const src = (time % 10000 < 1000) ? imagePrefix + this.glitch() : this.props.src;
 
     this.setState({src});

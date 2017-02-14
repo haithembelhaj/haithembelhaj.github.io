@@ -63,14 +63,14 @@ export default class Clouds extends THREEComponent {
 
     super.componentDidMount();
 
-    this.startTime = Date.now();
+    this.startTime = new Date().getTime();
   }
 
   draw() {
 
     super.draw();
 
-    const position = ((Date.now() - this.startTime) * 0.0004) % 10 * DEPTH;
+    const position = ((new Date().getTime() - this.startTime) * 0.0004) % 10 * DEPTH;
 
     this.camera.position.x += 0.01;
     this.camera.position.y += -0.01;

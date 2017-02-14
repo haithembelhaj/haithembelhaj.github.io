@@ -68,7 +68,7 @@ export default class Background extends THREEComponent {
 
     this.animationId = requestAnimationFrame(this.draw);
 
-    const time = Date.now();
+    const time = new Date().getTime();
 
     this.meshes.forEach((mesh) => {
 
