@@ -21,6 +21,11 @@ export default class THREEComponent extends PureComponent {
   inViewChange(inView) {
 
     this.inView = inView;
+
+    if(inView) {
+
+      this.node.classList.add('is-in-view');
+    }
   }
 
 

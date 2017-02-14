@@ -1,9 +1,9 @@
 import React from 'react';
 
-export  default () => {
+export  default (props) => {
 
   return (
-    <div className="links">
+    <div {...props} className={'links '+ props.className}>
       <a className="links--link is-email" href="mailto:haythem.belhaj@gmail.com" alt="email"></a>
       <a className="links--link is-github" href="https://github.com/haithembelhaj" alt="github"></a>
       <a className="links--link is-twitter" href="https://twitter.com/haythembelhaj" alt="twitter"></a>

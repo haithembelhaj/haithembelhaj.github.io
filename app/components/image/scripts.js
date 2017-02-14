@@ -25,6 +25,11 @@ export default class ImageComponent extends InViewComponent {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState){
+
+    return this.props.src !== nextProps.src || this.state.src !== nextState.src;
+  }
+
   inViewChange(inView) {
 
     super.inViewChange(inView);
@@ -34,6 +39,7 @@ export default class ImageComponent extends InViewComponent {
       return cancelAnimationFrame(this.animationId);
     }
 
+    this.startTime = Date.now();
     this.draw();
   }
 
@@ -73,8 +79,8 @@ export default class ImageComponent extends InViewComponent {
       return;
     }
 
-    const time = Date.now();
-    const src = (time % 7000 < 1000) ? imagePrefix + this.glitch() : this.props.src;
+    const time = Date.now() - this.startTime;
+    const src = (time % 10000 < 1000) ? imagePrefix + this.glitch() : this.props.src;
 
     this.setState({src});
   }

@@ -30,13 +30,14 @@
     border-radius: 100%;
     width: rem(220);
     height: rem(220);
-    margin: rem(50) 0;
+    margin: rem(40) 0;
   }
 
   &--text {
 
     @extend %h2;
     margin-bottom: 1.1em;
+    opacity: 0;
   }
 
   canvas {
@@ -46,5 +47,20 @@
     left: 0;
     right: 0;
     bottom: 0;
+  }
+
+  &.is-in-view .about--text {
+
+
+    animation: reveal 1s ease;
+    animation-fill-mode: forwards;
+
+    @for $i from 1 through 10 {
+
+      &:nth-of-type(#{$i}) {
+
+        animation-delay: $i * 1.3s;
+      }
+    }
   }
 }

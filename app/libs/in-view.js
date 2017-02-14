@@ -31,7 +31,7 @@ export function isInViewport (el) {
 
   const {top, bottom} = el.getBoundingClientRect();
 
-  return (top < windowHeight && bottom > 0);
+  return (top < 2 * windowHeight / 3 && bottom > 0);
 }
 
 function test() {

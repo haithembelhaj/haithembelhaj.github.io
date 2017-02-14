@@ -1786,6 +1786,22 @@ body {
       font-size: 1rem;
       line-height: 1.38889rem; } }
 
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translate(0, 50%); }
+  to {
+    opacity: 1;
+    transform: translate(0, 0); } }
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0); }
+  to {
+    opacity: 1;
+    transform: scale(1); } }
+
 .contact {
   position: relative;
   display: -ms-flexbox;
@@ -1816,15 +1832,17 @@ body {
       bottom: 0;
       background: url("/assets/images/noise.png");
       opacity: 0.65; }
-  .contact .image {
+  .contact--image {
     position: relative;
     width: 11.11111rem;
     height: 11.11111rem;
     border-radius: 100%;
-    margin-bottom: 2.77778rem;
+    margin-bottom: 1.66667rem;
     z-index: 1; }
-  .contact .links {
-    margin-top: 1.11111rem; }
+    @media screen and (min-width: 0) and (max-width: 699px) {
+      .contact--image {
+        width: 8.33333rem;
+        height: 8.33333rem; } }
   .contact--text {
     position: relative;
     width: 60vw;
@@ -1833,6 +1851,44 @@ body {
     @media screen and (min-width: 1000px) {
       .contact--text {
         width: 33.33333rem; } }
+  .contact .is-animated {
+    opacity: 0; }
+  .contact .is-in-view ~ .is-animated:nth-child(2) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 1s; }
+  .contact .is-in-view ~ .is-animated:nth-child(3) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 2s; }
+  .contact .is-in-view ~ .is-animated:nth-child(4) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 3s; }
+  .contact .is-in-view ~ .is-animated:nth-child(5) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 4s; }
+  .contact .is-in-view ~ .is-animated:nth-child(6) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 5s; }
+  .contact .is-in-view ~ .is-animated:nth-child(7) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 6s; }
+  .contact .is-in-view ~ .is-animated:nth-child(8) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 7s; }
+  .contact .is-in-view ~ .is-animated:nth-child(9) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 8s; }
+  .contact .is-in-view ~ .is-animated:nth-child(10) {
+    animation: zoomIn 1s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 9s; }
 
 .clouds canvas {
   position: absolute;
@@ -2005,15 +2061,39 @@ body {
     border-radius: 100%;
     width: 12.22222rem;
     height: 12.22222rem;
-    margin: 2.77778rem 0; }
+    margin: 2.22222rem 0; }
   .about--text {
-    margin-bottom: 1.1em; }
+    margin-bottom: 1.1em;
+    opacity: 0; }
   .about canvas {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0; }
+  .about.is-in-view .about--text {
+    animation: reveal 1s ease;
+    animation-fill-mode: forwards; }
+    .about.is-in-view .about--text:nth-of-type(1) {
+      animation-delay: 1.3s; }
+    .about.is-in-view .about--text:nth-of-type(2) {
+      animation-delay: 2.6s; }
+    .about.is-in-view .about--text:nth-of-type(3) {
+      animation-delay: 3.9s; }
+    .about.is-in-view .about--text:nth-of-type(4) {
+      animation-delay: 5.2s; }
+    .about.is-in-view .about--text:nth-of-type(5) {
+      animation-delay: 6.5s; }
+    .about.is-in-view .about--text:nth-of-type(6) {
+      animation-delay: 7.8s; }
+    .about.is-in-view .about--text:nth-of-type(7) {
+      animation-delay: 9.1s; }
+    .about.is-in-view .about--text:nth-of-type(8) {
+      animation-delay: 10.4s; }
+    .about.is-in-view .about--text:nth-of-type(9) {
+      animation-delay: 11.7s; }
+    .about.is-in-view .about--text:nth-of-type(10) {
+      animation-delay: 13s; }
 
 .hero {
   position: relative;
@@ -2047,20 +2127,12 @@ body {
         width: 33.33333rem; } }
   .hero--headline {
     opacity: 0;
-    animation: reveal 1s ease;
+    animation: zoomIn 2s ease;
     animation-fill-mode: forwards; }
     .hero--headline:nth-of-type(1) {
       animation-delay: 2s; }
     .hero--headline:nth-of-type(2) {
       animation-delay: 4s; }
-
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translate(0, 50%); }
-  to {
-    opacity: 1;
-    transform: translate(0, 0); } }
 
 .background {
   z-index: 0;

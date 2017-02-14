@@ -11,7 +11,7 @@
     "assets:copy": "cp -R ./app/assets ./public",
     "assets:images": "./scripts/images",
     "assets:compile": "./scripts/compile --production --scripts --styles",
-    "render": "./scripts/render --view index",
+    "render": "BABEL_DISABLE_CACHE=1 ./scripts/render --view index",
     "compile": "npm run assets:copy && npm run assets:images && npm run assets:compile && npm run render",
     "dev": "npm run assets:copy & npm run assets:images & npm run assets:compile & npm run watch & npm run browserSync",
     "push": "git push origin `git subtree split --prefix public/ dev`:master --force",
