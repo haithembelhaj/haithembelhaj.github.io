@@ -587,6 +587,7 @@ ol {
   height: 100vh;
   background-image: url("/assets/images/nebula.jpg"), url("data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAADAAMDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAdEAACAgEFAAAAAAAAAAAAAAABAgAFAxESITJB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQX/xAAYEQACAwAAAAAAAAAAAAAAAAAAAQIRMv/aAAwDAQACEQMRAD8AnC+Aa1zNsRdQpIVQo6jwcCIiUqGemf/Z");
   background-size: cover, cover;
+  background-position: center, center;
   overflow: hidden; }
   .contact .clouds {
     position: absolute;
@@ -810,7 +811,8 @@ ol {
       justify-content: center;
   height: 100vh;
   background-image: radial-gradient(circle 50vw at 50% 50%, white 0%, rgba(255, 255, 255, 0.2) 100%), url("/assets/images/mountain.jpg"), url("data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAADAAMDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAdEAACAgEFAAAAAAAAAAAAAAABAgAEAwUGERPS/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwChb3VrKWcircAUHgDpTzERGSP/2Q==");
-  background-size: auto, cover;
+  background-position: center, center, center;
+  background-size: auto, cover, cover;
   overflow: hidden; }
   .about:after {
     content: '';
