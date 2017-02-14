@@ -71,6 +71,7 @@
     "react-geosuggest": "^2.0.0",
     "request": "^2.79.0",
     "sass-inline-svg": "0.0.3",
+    "sharp": "^0.17.2",
     "three": "^0.84.0",
     "three-effectcomposer": "0.0.1",
     "webpack": "^1.14.0",
