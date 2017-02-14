@@ -6,8 +6,8 @@
   justify-content: center;
   height: 100vh;
   background-image: radial-gradient(circle 50vw at 50% 50%, rgba(white, 1) 0%, rgba(white, 0.2) 100%), url('/assets/images/mountain.jpg'), inline('/assets/images/mountain-placeholder.jpg');
-  background-size: auto, cover;
-
+  background-position: center, center, center;
+  background-size: auto, cover, cover;
   overflow: hidden;
 
   @include noise;
