@@ -25,19 +25,19 @@
     }
   }
 
+  &--container p{
+
+    @extend %h2;
+    margin-bottom: 1.1em;
+    opacity: 0;
+  }
+
   &--image {
 
     border-radius: 100%;
     width: rem(220);
     height: rem(220);
     margin: rem(40) 0;
-  }
-
-  &--text {
-
-    @extend %h2;
-    margin-bottom: 1.1em;
-    opacity: 0;
   }
 
   canvas {
@@ -49,8 +49,7 @@
     bottom: 0;
   }
 
-  &.is-in-view .about--text {
-
+  &.is-in-view .about--container p{
 
     animation: reveal 1s ease;
     animation-fill-mode: forwards;

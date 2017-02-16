@@ -14,13 +14,12 @@ if(!view) {
   return console.error('view must be defined');
 }
 
-render(path.resolve(config.srcPath, `views/${view}/template.jsx`), {
-  page: {
-    title: 'A fullstack develper!',
-    description: 'Hi! I\'m a frontend engineer with serious backend skills',
-  }
-}).then((html) => {
+const page = require(path.resolve(config.dataPath, 'pages/en/' + view));
+const templatePath = path.resolve(config.srcPath, `views/${view}/template.jsx`);
 
-  return fs.writeFileSyncAsync(path.resolve(config.destPath, view + '.html'), html, {});
+render(templatePath, {page})
+  .then((html) => {
 
-}).catch((e)=> console.error(e));
+    return fs.writeFileSyncAsync(path.resolve(config.destPath, view + '.html'), html, {});
+  })
+  .catch((e)=> console.error(e));

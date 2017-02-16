@@ -34,52 +34,76 @@
     margin-bottom: rem(30);
 
     z-index: 1;
+    opacity: 0;
 
     @include media(s) {
 
       width: rem(150);
       height: rem(150);
     }
-
   }
 
   .links {
 
-    //margin-top: rem(10);
+    opacity: 0;
   }
 
-  &--text {
-
-    @extend %h2;
+  &--container {
 
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 60vw;
 
     color: white;
     z-index: 1;
 
+    text-align: center;
 
     @include media(l) {
 
       width: rem(600);
     }
+
+    p {
+
+      @extend %h2;
+      opacity: 0;
+    }
   }
 
-  .is-animated {
 
-    opacity: 0;
-  }
 
-  .is-in-view ~ .is-animated{
+  .is-in-view + .contact--container {
 
-    @for $i from 2 through 10 {
 
-      &:nth-child(#{$i}) {
+    .contact--image {
 
-        animation: zoomIn 1s ease;
-        animation-fill-mode: forwards;
-        animation-delay: ($i - 1) * 1s;
+      animation: zoomIn 1s ease;
+      animation-fill-mode: forwards;
+      animation-delay: 1s;
+    }
+
+    p {
+
+      @for $i from 1 through 10 {
+
+        &:nth-child(#{$i}) {
+
+          animation: zoomIn 1s ease;
+          animation-fill-mode: forwards;
+          animation-delay: ($i + 1) * 1s;
+        }
       }
+    }
+
+    .links {
+
+      animation: zoomIn 1s ease;
+      animation-fill-mode: forwards;
+      animation-delay: 5s;
     }
   }
 }

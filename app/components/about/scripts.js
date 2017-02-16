@@ -95,6 +95,6 @@ export default class Background extends THREEComponent {
 
   render() {
 
-    return <Template></Template>;
+    return <Template {...this.props}/>;
   }
 }

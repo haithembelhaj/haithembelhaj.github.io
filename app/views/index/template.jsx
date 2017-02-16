@@ -4,13 +4,13 @@ import Hero from '../../components/hero/template.jsx';
 import About from '../../components/about/template.jsx';
 import Contact from '../../components/contact/template.jsx';
 
-export default () => {
+export default (props) => {
 
   return (
     <div>
-      <Hero />
-      <About />
-      <Contact />
+      <Hero {...props}/>
+      <About {...props} />
+      <Contact {...props} />
     </div>
   );
 };
