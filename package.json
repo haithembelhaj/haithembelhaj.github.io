@@ -14,7 +14,7 @@
     "render": "BABEL_DISABLE_CACHE=1 ./scripts/render --view index",
     "lighthouse": "lighthouse http://localhost:3000",
     "compile": "npm run assets:copy && npm run assets:images && npm run assets:compile && npm run render",
-    "dev": "npm run assets:copy & npm run assets:images & npm run assets:compile & npm run watch & npm run browserSync",
+    "dev": "npm run compile && npm run start-docker & npm run watch & npm run browserSync",
     "push": "git push origin `git subtree split --prefix public/ dev`:master --force",
     "deploy": "npm run compile && npm run push"
   },
